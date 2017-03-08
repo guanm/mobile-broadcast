@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>直播间</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        header{ background-color: #FF8C00; line-height: 42px; height: 42px; position: relative; }
+        header b{ width: 42px; height: 100%; display: inline-block; position: relative; z-index: 1; background: url() no-repeat center; background-size: 70% auto;  }
+        header b.ic-back{ background-image: url(../image/ic-back.png); }
+        header b.ic-check{ background-image: url(../image/ic-check.png); float: right; }
+        header .title{ position: absolute; left: 0; bottom: 0; right: 0;  text-align: center; font-size: 18px; color:white}
+    </style>
+</head>
+<body>
+<div id="wrap" class="flex-wrap flex-vertical" >
+    <header class="border-b" >
+        <b tapmode="hover" onclick="api.closeWin();" class="ic-back"></b>
+        <div class="title">直播间</div>
+        <b tapmode="hover" onclick="funActionSheet();"  class="ic-check"></b>
+    </header>
+    <div id="main" class="flex-con" >
+
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        $api.fixStatusBar( $api.dom('header') );
+        $api.dom('.title').innerHTML = '直播间';//api.pageParam.name;
+//        api.openFrame({
+//            name: 'frm_mine',
+//            url: './frm_mine.html',
+//            rect: {
+//                x: 0,
+//                y: $api.dom('header').offsetHeight,
+//                w: api.winWidth,
+//                h: $api.dom('#main').offsetHeight
+//            },
+//            bounces : true,
+//            pageParam: {
+//                name: api.pageParam.name
+//            }
+//        });
+        var core = api.require('gotyeLiveCore');
+
+        core.registerApp({
+            appKey: "8a803b201d6e4055b63140c9b193fe23",
+            accessSecret: "548480733e134b0d888e39a39167e8c2"
+        });
+
+        var session = {
+            roomId: '2151615',
+            password: 'guan@123',
+            nickname: 'kkk'
+        };
+        alert(session);
+        core.authRoomSession(session, function(ret, err) {
+            if (ret) {
+                alert(JSON.stringify(ret));
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    };
+
+    function funActionSheet(){
+        api.actionSheet({
+            title: '底部弹出框',
+            cancelTitle: '取消',
+            destructiveTitle: '红色警告按钮',
+            buttons: ['按钮1','按钮2','按钮3']
+        },function(ret,err){
+            // api.alert({
+            //     msg: '你刚点击了'+ret.buttonIndex
+            // });
+        });
+    }
+</script>

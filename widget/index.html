@@ -4,85 +4,172 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>Hello APP</title>
+    <title>移动直播demo</title>
     <link rel="stylesheet" type="text/css" href="./css/api.css" />
-    <style type="text/css">
-    html,body{
-        height: 100%;
-    }
-    #wrap{
-        height: 100%;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-flex-flow: column;
-               flex-flow: column;
-    }
-    #header{
-        text-align: center; background-color: #81a9c3; color: #fff;
-        width: 100%;
-    }
-    #header h1{
-        font-size: 20px; height: 44px; line-height: 44px; margin: 0em; color: #fff;
-    }
-    #main{
-        -webkit-box-flex: 1; 
-        -webkit-flex: 1;
-        flex: 1;
-    }
-    #footer{
-        height: 30px; line-height: 30px;
-        background-color: #81a9c3; 
-        width: 100%;
-        text-align: center;
-    }
-    #footer h5{
-        color: white;
-    }
-    .con{font-size: 28px; text-align: center;}
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <style>
+        header{ background-color: #FF8C00;  line-height: 42px; font-size: 18px; text-align: center; color:white}
     </style>
 </head>
 <body>
-    <div id="wrap">
-        <div id="header">
-            <h1>APICloud</h1>
-        </div>
-        <div id="main">
+    <div id="wrap" class="flex-wrap flex-vertical" >
+        <header class="border-b" >移动直播</header>
+        <div id="main" class="flex-con" >
                 
-        </div>
-        <div id="footer">
-            <h5>Copyright &copy;<span id="year"></span> </h5>
         </div>
     </div>
 </body>
+</html>
 <script type="text/javascript" src="./script/api.js"></script>
 <script type="text/javascript">
     apiready = function(){
-		console.log("Hello APICloud");
-
+        $api.fixStatusBar( $api.dom('header') );
+        api.setStatusBarStyle({
+            style: 'light',
+            color: '#6ab494'
+        });
+//        api.openFrame({
+//            name: 'index',
+//            url: './html/index.html',
+//            rect: {
+//                x: 0,
+//                y: $api.dom('header').offsetHeight,
+//                w: api.winWidth,
+//                h: $api.dom('#main').offsetHeight
+//            }
+//        });
+        //底部菜单
         var header = $api.byId('header');
-        //适配iOS 7+，Android 4.4+状态栏
-        $api.fixStatusBar(header);
-
         var headerPos = $api.offset(header);
         var main = $api.byId('main');
         var mainPos = $api.offset(main);
-        api.openFrame({
-            name: 'main',
-            url: 'html/main.html',
-            bounces: true,
-            rect: {
-                x: 0,
-                y: headerPos.h,
-                w: 'auto',
-                h: mainPos.h
+        var NVTabBar = api.require('NVTabBar');
+        NVTabBar.open({
+            styles: {
+                bg: '#fff',
+                h: 50,
+                dividingLine: {
+                    width: 0.5,
+                    color: '#000'
+                },
+                badge: {
+                    bgColor: '#ff0',
+                    numColor: '#fff',
+                    size: 6.0
+                }
+            },
+            items: [{
+                w: api.winWidth / 3.0,
+                bg: {
+                    marginB: 0,
+                    image: 'rgba(0,0,0,0)'
+                },
+                iconRect: {
+                    w: 30.0,
+                    h: 30.0,
+                },
+                icon: {
+                    normal: 'image/icon1.png',
+                    highlight: 'image/icon11.png',
+                    selected: 'image/icon11.png'
+                },
+                title: {
+                    text: '首页',
+                    size: 14.0,
+                    normal: '#696969',
+                    selected: '#FF8C00',
+                    marginB: 3.0
+                }
+            }, {
+                w: api.winWidth / 3.0,
+                bg: {
+                    marginB: 0,
+                    image: 'rgba(0,0,0,0)'
+                },
+                iconRect: {
+                    w: 30.0,
+                    h: 30.0,
+                },
+                icon: {
+                    normal: 'image/icon2.png',
+                    highlight: 'image/icon21.png',
+                    selected: 'image/icon21.png'
+                },
+                title: {
+                    text: '关注',
+                    size: 14.0,
+                    normal: '#696969',
+                    selected: '#FF8C00',
+                    marginB: 3.0
+                }
+            }, {
+                w: api.winWidth / 3.0,
+                bg: {
+                    marginB: 0,
+                    image: 'rgba(0,0,0,0)'
+                },
+                iconRect: {
+                    w: 30.0,
+                    h: 30.0,
+                },
+                icon: {
+                    normal: 'image/icon3.png',
+                    highlight: 'image/icon31.png',
+                    selected: 'image/icon31.png'
+                },
+                title: {
+                    text: '我的',
+                    size: 14.0,
+                    normal: '#696969',
+                    selected: '#FF8C00',
+                    marginB: 3.0
+                }
+            }],
+            selectedIndex: 0
+        }, function(ret, err) {
+            if (ret) {
+                //alert(JSON.stringify(ret));
+                var url = '';
+                var index = ret['index'];
+                if(index == 1){
+                    url = './html/follow.html';
+                    api.closeFrame({
+                        name: 'frame0'
+                    });
+                    api.closeFrame({
+                        name: 'frame2'
+                    });
+                }else if(index == 2){
+                    url = './html/my.html';
+                    api.closeFrame({
+                        name: 'frame0'
+                    });
+                    api.closeFrame({
+                        name: 'frame1'
+                    });
+                }else{
+                    index = 1;
+                    url = './html/index.html';
+                    api.closeFrame({
+                        name: 'frame1'
+                    });
+                    api.closeFrame({
+                        name: 'frame2'
+                    });
+                }
+                if(url!=''){
+                    api.openFrame({
+                        name: 'frame'+index,
+                        url: url,
+                        rect: {
+                            x: 0,
+                            y: $api.dom('header').offsetHeight,
+                            w: api.winWidth,
+                            h: $api.dom('#main').offsetHeight
+                        }
+                    });
+                }
             }
         });
-
-        var year = $api.byId('year');
-        year.innerHTML = new Date().getFullYear();
-
     };
 </script>
-</html>
