@@ -18,8 +18,4 @@
 	<permission name="location"/>
 	<permission name="internet"/>
 	<access origin="*"/>
-	<feature name="gotyeLiveCore">
-		<param name="appKey" value="8a803b201d6e4055b63140c9b193fe23" />
-		<param name="accessSecret" value="548480733e134b0d888e39a39167e8c2" />
-	</feature>
 </widget>

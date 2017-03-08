@@ -33,38 +33,18 @@
     apiready = function(){
         $api.fixStatusBar( $api.dom('header') );
         $api.dom('.title').innerHTML = '直播间';//api.pageParam.name;
-//        api.openFrame({
-//            name: 'frm_mine',
-//            url: './frm_mine.html',
-//            rect: {
-//                x: 0,
-//                y: $api.dom('header').offsetHeight,
-//                w: api.winWidth,
-//                h: $api.dom('#main').offsetHeight
-//            },
-//            bounces : true,
-//            pageParam: {
-//                name: api.pageParam.name
-//            }
-//        });
-        var core = api.require('gotyeLiveCore');
-
-        core.registerApp({
-            appKey: "8a803b201d6e4055b63140c9b193fe23",
-            accessSecret: "548480733e134b0d888e39a39167e8c2"
-        });
-
-        var session = {
-            roomId: '2151615',
-            password: 'guan@123',
-            nickname: 'kkk'
-        };
-        alert(session);
-        core.authRoomSession(session, function(ret, err) {
-            if (ret) {
-                alert(JSON.stringify(ret));
-            } else {
-                alert(JSON.stringify(err));
+        api.openFrame({
+            name: 'live_frame',
+            url: './live_frame.html',
+            rect: {
+                x: 0,
+                y: $api.dom('header').offsetHeight,
+                w: api.winWidth,
+                h: $api.dom('#main').offsetHeight
+            },
+            bounces : true,
+            pageParam: {
+                name: api.pageParam.name
             }
         });
     };
