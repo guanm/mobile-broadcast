@@ -8,21 +8,25 @@
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <style>
-        header{ background-color: #FF8C00; line-height: 42px; height: 42px; position: relative; }
+        header{ background-color: transparent; line-height: 42px; height: 42px; position: relative; }
         header b{ width: 42px; height: 100%; display: inline-block; position: relative; z-index: 1; background: url() no-repeat center; background-size: 70% auto;  }
-        header b.ic-back{ background-image: url(../image/ic-back.png); }
+        header b.ic-back{ background-image: url(../image/ic-back1.png); }
         header b.ic-check{ background-image: url(../image/ic-check.png); float: right; }
-        header .title{ position: absolute; left: 0; bottom: 0; right: 0;  text-align: center; font-size: 18px; color:white}
+        header .title{ position: absolute; left: 0; bottom: 0; right: 0;  text-align: center; font-size: 18px; color:blue}
+        #frame0{width:100%;height:70px;background-color: transparent;position:absolute;top:0px;}
     </style>
 </head>
 <body>
 <div id="wrap" class="flex-wrap flex-vertical" >
-    <header class="border-b" >
-        <b tapmode="hover" onclick="api.closeWin();" class="ic-back"></b>
-        <div class="title">直播间</div>
-        <b tapmode="hover" onclick="funActionSheet();"  class="ic-check"></b>
-    </header>
-    <div id="main" class="flex-con" >
+    <!--<header class="border-b" >-->
+        <!--<b tapmode="hover" onclick="api.closeWin();" class="ic-back"></b>-->
+        <!--&lt;!&ndash;<div class="title">直播间</div>&ndash;&gt;-->
+        <!--<b tapmode="hover" onclick="funActionSheet();"  class="ic-check"></b>-->
+    <!--</header>-->
+    <div id="frame0" class="flex-con">
+
+    </div>
+    <div id="main" class="flex-con">
 
     </div>
 </div>
@@ -32,17 +36,30 @@
 <script type="text/javascript">
     apiready = function(){
         $api.fixStatusBar( $api.dom('header') );
-        $api.dom('.title').innerHTML = '直播间';//api.pageParam.name;
+        //$api.dom('.title').innerHTML = '直播间';//api.pageParam.name;
         api.openFrame({
             name: 'live_frame',
             url: './live_frame.html',
             rect: {
                 x: 0,
-                y: $api.dom('header').offsetHeight,
+                y: 0,//$api.dom('header').offsetHeight,
                 w: api.winWidth,
-                h: $api.dom('#main').offsetHeight
+                h: $api.dom('#wrap').offsetHeight//$api.dom('#main').offsetHeight
             },
             bounces : true,
+            pageParam: {
+                name: api.pageParam.name
+            }
+        });
+        api.openFrame({
+            name: 'live_frame0',
+            url: './live_frame0.html',
+            rect: {
+                x: 0,
+                y: 0,//$api.dom('header').offsetHeight,
+                w: api.winWidth,
+                h: 60//$api.dom('#main').offsetHeight
+            },
             pageParam: {
                 name: api.pageParam.name
             }

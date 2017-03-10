@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        body{background-color: transparent}
+        .top-div{width:100%;height:70px;background-color: transparent;position:absolute;top:0px}
+        .top-div b{ margin-top:5px;width: 50px; height: 100%; display: inline-block; position: relative; z-index: 1; background: url() no-repeat center; background-size: 70% auto;  }
+        .top-div b.ic-back{ background-image: url(../image/ic-back.png); }
+        .top-div b.ic-smooth{ background-image: url(../image/ic-smooth.png); }
+        .top-div b.ic-smoothed{ background-image: url(../image/ic-smoothed.png);}
+        .top-div b.ic-camera{ background-image: url(../image/ic-camera.png); }
+    </style>
+</head>
+<body>
+    <div class="top-div">
+        <b tapmode="hover" onclick="logout();" class="ic-back"></b>
+        <b tapmode="hover" onclick="smooth();" class="smooth ic-smooth"></b>
+        <b tapmode="hover" onclick="camera();" class="ic-camera"></b>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        //publisher = api.require('gotyeLivePublisher');
+    };
+    function logout(){
+        api.sendEvent({
+            name: 'live-unpublisher'
+        });
+        api.closeWin();
+    }
+    function smooth(){
+//        var value = 1;
+        var smooth = $api.dom('.smooth');
+//        if($api.dom('.smooth').hasCls('ic-smooth')){
+//            alert(1);
+            $api.removeCls(smooth, 'ic-smooth');
+            $api.addCls(smooth, 'ic-smoothed');
+//        }else{
+//            alert(2);
+//            $api.addCls('smooth', 'ic-smooth');
+//            $api.removeCls('smooth', 'ic-smoothed');
+//        }
+//        if(2>1){
+//            value = 0;
+//        }else{
+//            value = 1;
+//        }
+        api.sendEvent({
+            name: 'smooth-skin'
+        });
+    }
+    function camera() {
+        api.sendEvent({
+            name: 'switch-camera'
+        });
+    }
+</script>

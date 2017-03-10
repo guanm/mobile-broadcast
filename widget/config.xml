@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><widget id="A6933999081598" version="0.0.1">
-  	<name>222</name>
+  	<name>mobile-broadcast</name>
 	<description>
 		Example For mobile broadcast.
 	</description>
@@ -18,4 +18,8 @@
 	<permission name="location"/>
 	<permission name="internet"/>
 	<access origin="*"/>
+	<feature name="gotyeLiveCore">
+		<param name="appKey" value="8a803b201d6e4055b63140c9b193fe23" />
+		<param name="accessSecret" value="548480733e134b0d888e39a39167e8c2" />
+	</feature>
 </widget>

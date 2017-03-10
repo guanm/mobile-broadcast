@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="empty">首页</div>
+    <div class="empty" onclick="clickLive()">开始直播</div>
     <!--<div id="main" class="flex-wrap flex-con" >-->
         <!--<div class="flex-con flex-wrap flex-vertical">-->
             <!--<div tapmode="hover" onclick="funOpenArticle( this );" class="flex-wrap flex-con flex-2 layout-wrap">-->
@@ -113,22 +113,22 @@
             type : 'arc',
             mainMenu : {
                 x : api.frameWidth - 60,
-                y : api.frameHeight - 60,
+                y : api.frameHeight - 30,
                 w : 50,
                 h : 50,
-                img : '../image/1.png',
-                imgLight : '../image/1.png'
+                img : 'widget://image/1.png',
+                imgLight : 'widget://image/1.png'
             },
             items : [{
                 w : 50,
                 h : 50,
-                img : '../image/3.png',
-                imgLight : '../image/3.png'
+                img : 'widget://image/3.png',
+                imgLight : 'widget://image/3.png'
             }, {
                 w : 50,
                 h : 50,
-                img : '../image/2.png',
-                imgLight : '../image/2.png'
+                img : 'widget://image/2.png',
+                imgLight : 'widget://image/2.png'
             }],
             startAngle : 270,
             wholeAngle : 90,
@@ -170,6 +170,13 @@
             pageParam: {
                 name: tag.querySelector('h6').innerHTML
             }
+        });
+    }
+    function clickLive(){
+        api.openWin({
+            name: 'live',
+            url: './live.html',
+            pageParam: {name: 'pageparamname'}
         });
     }
 </script>

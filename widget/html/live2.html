@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>直播间</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        .top-div{width:100%;height:70px;background-color: transparent;}
+        .top-div b{ margin-top:5px;width: 42px; height: 100%; display: inline-block; position: relative; z-index: 1; background: url() no-repeat center; background-size: 70% auto;  }
+        .top-div b.ic-back{ background-image: url(../image/ic-back1.png); }
+    </style>
+</head>
+<body>
+<div class="top-div">
+    <b tapmode="hover" onclick="api.closeWin();logout();" class="ic-back"></b>
+    <b tapmode="hover" onclick="api.closeWin();logout();" class="ic-back"></b>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        //$api.dom('.empty').innerHTML = api.pageParam.name+'页';
+        //进入房间
+        alert(1);
+        var core = api.require('gotyeLiveCore');
+        core.setDebugLogEnabled({
+            enabled: true
+        });
+        alert(2);
+        var session = {
+            roomId: '2151615',
+            password: 'a3qSdn',
+            nickname: 'kkk'
+        };
+        core.authRoomSession(session, function(ret, err) {
+            if (ret) {
+                alert(JSON.stringify(ret));
+            } else {
+                alert('000'+JSON.stringify(err));
+            }
+        });
+        alert(3);
+        //开始直播
+        var publisher = api.require('gotyeLivePublisher');
+        publisher.init({session:session});
+        publisher.startPreview({
+            preview: "live"
+        }, function(ret, err) {
+            if (err) {
+                alert(JSON.stringify(err));
+            }
+        });
+        alert(4);
+        console.log('正在连接');
+        //alert('正在连接');
+        publisher.login({ force: true }, function(ret, err) {
+            if (ret) {
+                alert('直播登录正常：'+JSON.stringify(ret));
+            } else {
+                alert('直播登录异常：'+JSON.stringify(err));
+            }
+        });
+        alert(5);
+        publisher.publish();
+        publisher.setMute({mute: true});
+        publisher.setFilter({filter: 'smoothSkin'});
+        publisher.setSmoothSkinFactor({factor: 0.3});
+        publisher.addEventListener({
+            name: 'connected'
+        }, function() {
+            //operation
+            alert('connected');
+        });
+    };
+    function logout(){
+        var core = api.require('gotyeLiveCore');
+        var session = {
+            roomId: '2151615',
+            password: 'a3qSdn',
+            nickname: 'kkk'
+        };
+        core.destroyRoomSession(session);
+        var publisher = api.require('gotyeLivePublisher');
+        publisher.stop();
+        publisher.logout();
+    }
+</script>
